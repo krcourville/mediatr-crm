@@ -87,3 +87,7 @@ public class OrderController {
     }
 }
 ```
+
+### Command Query Object Pattern
+
+Using Command Query Object pattern. Requests are defined and Request Handlers handle the request.
