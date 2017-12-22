@@ -91,3 +91,12 @@ public class OrderController {
 ### Command Query Object Pattern
 
 Using Command Query Object pattern. Requests are defined and Request Handlers handle the request.
+
+### Concerns
+
+* Security?
+* Validation?
+* Exception Handling?
+* Ease of use?
+* Logging?
+* Analytics?
