@@ -24,13 +24,13 @@ public interface IContactRepository {
 
 ### Large Files
 
-In a team environment, larges files result in choke points during development.  Devs must spend time resolving code conflicts and merging code.  More merges increases the chances of losing code.
+In a team environment, larges files result in choke points during development. Devs must spend time resolving code conflicts and merging code. More merges increases the chances of losing code.
 
 To avoid this, generally code files should not exceed about 400 lines
 
 ### DRY: Don't Repeat Yourself
 
-Often, repository methods are a duplicate of Web API calls.  So, why use a repository?
+Often, repository methods are a duplicate of Web API calls. So, why use a repository?
 
 ```csharp
 // UserController.cs
@@ -43,7 +43,7 @@ public class UserController {
 
     [HttpGet("{id}")]
     public Task<Contact> Get(string id) {
-        return this.userRepository.Get(id);        
+        return this.userRepository.Get(id);
     }
 }
 
@@ -55,17 +55,17 @@ public interface IUserRepository {
 
 ### Fat Repositories
 
-Usually, pretty quickly, devs will dump many methods/scenarios into a repository.  The end result is a large, difficult-to maintain file.
+Usually, pretty quickly, devs will dump many methods/scenarios into a repository. The end result is a large, difficult-to maintain file.
 
 ### Confusion: Where does this go?
 
-Scenario: I need to add an API to associate users with managers.  Should I put the method in IUserRepository or IManagerRepository? Or make a new repository or service
+Scenario: I need to add an API to associate users with managers. Should I put the method in IUserRepository or IManagerRepository? Or make a new repository or service
 
 ### Cross Entity Concerns
 
-Scenario: My API call requires queries against `User`, `Permission`, `Order`, and `OrderLine` entities.  How do I handle this?
+Scenario: My API call requires queries against `User`, `Permission`, `Order`, and `OrderLine` entities. How do I handle this?
 
-Generally, this ends up being handed in the API controller.  Now you have business logic scattered throughout multiple layers of the API.  And you end up with a Fat controller file with ugly, difficult-to-test constructor.
+Generally, this ends up being handed in the API controller. Now you have business logic scattered throughout multiple layers of the API. And you end up with a Fat controller file with ugly, difficult-to-test constructor.
 
 ```csharp
 public class OrderController {
@@ -90,7 +90,7 @@ public class OrderController {
 
 ### Command Query Object Pattern
 
-Using Command Query Object pattern. Requests are defined and Request Handlers handle the request.
+With Command Query Object pattern, Requests are defined and Request Handlers response to the request.
 
 ### Concerns
 
