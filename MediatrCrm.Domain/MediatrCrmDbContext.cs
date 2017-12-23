@@ -12,28 +12,50 @@ namespace MediatrCrm.Domain
     {
         Task<IEnumerable<T>> GetAll<T>() where T : IEntity;
         Task<T> GetById<T>(string id) where T : IEntity;
+        Task<T> Add<T>(T entity) where T : IEntity;
     }
 
+    /// <summary>
+    /// WARNING: This is strictly for illustration purposes and is not a good 
+    /// pattern to follow!
+    /// 
+    /// For example: the static lists are not thread safe
+    /// </summary>
     public class MediatrCrmDbContext : IDbContext
     {
-        private List<Contact> mockContacts = new List<Contact>{
+        private static List<Contact> mockContacts = new List<Contact>{
             new Contact {
-                UniqueId = "0f4e859fdd2",
+                UniqueId = "3d206612de8e",
                 FirstName = "Joe",
                 LastName = "Schmoe",
                 ContactSecret1 = "secret1"
             },
             new Contact {
-                UniqueId = "252f20ff6c0",
+                UniqueId = "474af0de6a74",
                 FirstName = "Sally",
                 LastName = "Smith",
                 ContactSecret1 = "sally's secret"
             }
         };
 
+        public Task<T> Add<T>(T entity) where T : IEntity
+        {
+			entity.UniqueId = entity.UniqueId ?? NewId();
+            var set = GetDbSet<T>();
+            set.Add(entity);
+            return Task.FromResult(entity);
+
+        }
+
+        private string NewId()
+        {
+            var guid = Guid.NewGuid().ToString();
+            return guid.Split('-').Last();
+        }
+
         public Task<IEnumerable<T>> GetAll<T>() where T : IEntity
         {
-            return Task.FromResult( GetDbSet<T>());
+            return Task.FromResult( GetDbSet<T>() as IEnumerable<T>);
         }
 
         public Task<T> GetById<T>(string id) where T : IEntity
@@ -43,11 +65,11 @@ namespace MediatrCrm.Domain
             return Task.FromResult(item);
         }
 
-        private IEnumerable<T> GetDbSet<T>() where T : IEntity
+        private IList<T> GetDbSet<T>() where T : IEntity
         {
             if (typeof(T) == typeof(Contact))
             {
-                return mockContacts as IEnumerable<T>;
+                return mockContacts as IList<T>;
             }
             else
             {

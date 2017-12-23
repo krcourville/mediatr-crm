@@ -8,20 +8,20 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MediatrCrm.Domain.Queries
+namespace MediatrCrm.Domain.Handlers
 {
-    public class SingleContactRequest : GetByIdRequest<ContactDefaultViewModel>
+    public class GetSingleContactRequest : GetByIdRequest<ContactDefaultViewModel>
     {        
     }
-    public class SingleContactQuery : IRequestHandler<SingleContactRequest, ContactDefaultViewModel>
+    public class GetSingleContactHandler : IRequestHandler<GetSingleContactRequest, ContactDefaultViewModel>
     {
         private readonly IDbContext dbcontext;
 
-        public SingleContactQuery(IDbContext dbcontext)
+        public GetSingleContactHandler(IDbContext dbcontext)
         {
             this.dbcontext = dbcontext;
         }
-        public async Task<ContactDefaultViewModel> Handle(SingleContactRequest request, CancellationToken cancellationToken)
+        public async Task<ContactDefaultViewModel> Handle(GetSingleContactRequest request, CancellationToken cancellationToken)
         {
             var item = await this.dbcontext.GetById<Contact>(request.Id);
             return item.ToDefaultContactViewModel();                                        

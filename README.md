@@ -146,4 +146,7 @@ What does code look like for the following:
 * Ease of use?
 * Logging?
 * Analytics?
-* Testability
+* Testability?
+* Pagination?
+* Queryability?
+* Patch support?

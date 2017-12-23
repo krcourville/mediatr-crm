@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
-using MediatrCrm.Domain.Queries;
+using MediatrCrm.Domain.Handlers;
 using MediatrCrm.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,17 +18,24 @@ namespace MediatrCrm.Controllers
             this.mediator = mediator;
         }
 
-        // api/contacts
+        // GET api/contacts
         [HttpGet]
-        public async Task<IEnumerable<ContactDefaultViewModel>> Get(AllContactsRequest request) {
+        public async Task<IEnumerable<ContactDefaultViewModel>> Get(GetAllContactsRequest request) {
             return await mediator.Send(request);
         }
 
-        // api/contacts/{id}
+        // GET api/contacts/{id}
         [HttpGet("{id}")]
-        public async Task<ContactDefaultViewModel> Get(SingleContactRequest request)
+        public async Task<ContactDefaultViewModel> Get(GetSingleContactRequest request)
         {
             return await mediator.Send(request);
+        }
+
+        // POST api/contacts/{id}
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]AddContactRequest request) {
+            var result = await mediator.Send(request);
+            return CreatedAtAction("Get", new { id = result.Id }, result);
         }
     }
 }
