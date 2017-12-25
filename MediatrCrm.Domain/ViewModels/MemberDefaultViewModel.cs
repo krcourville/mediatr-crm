@@ -1,9 +1,9 @@
 ﻿using System;
 namespace MediatrCrm.Domain.ViewModels
 {
-    public class ContactDefaultViewModel
+    public class MemberDefaultViewModel
     {
-        public ContactDefaultViewModel()
+        public MemberDefaultViewModel()
         {
         }
 

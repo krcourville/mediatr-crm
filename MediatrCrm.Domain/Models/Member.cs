@@ -1,13 +1,13 @@
-﻿using MediatrCrm.Domain.Contacts;
+﻿using MediatrCrm.Domain.Contracts;
 using System;
 namespace MediatrCrm.Domain.Models
 {
     /// <summary>
-    /// Represents a Contact pulled directly from the data store
+    /// Represents a Member pulled directly from the data store
     /// </summary>
-    public class Contact : IEntity
+    public class Member : IEntity
     {
-        public Contact()
+        public Member()
         {
         }
 
@@ -28,8 +28,8 @@ namespace MediatrCrm.Domain.Models
         /// <summary>
         /// Warning: This value should not be exposed casually!
         /// </summary>
-        /// <value>The contact secret1.</value>
-        public string ContactSecret1
+        /// <value>The member secret1.</value>
+        public string MemberSecret1
         {
             get;
             set;

@@ -9,38 +9,38 @@ using Microsoft.AspNetCore.Mvc;
 namespace MediatrCrm.Controllers
 {
     [Route("api/[controller]")]
-    public class ContactsController : Controller
+    public class MembersController : Controller
     {
         readonly IMediator mediator;
 
-        public ContactsController(IMediator mediator)
+        public MembersController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
-        // GET api/contacts
+        // GET api/members
         [HttpGet]
-        public async Task<IEnumerable<ContactDefaultViewModel>> Get(GetAllContactsRequest request) {
+        public async Task<IEnumerable<MemberDefaultViewModel>> Get(GetAllMembersRequest request) {
             return await mediator.Send(request);
         }
 
-        // GET api/contacts/{id}
+        // GET api/members/{id}
         [HttpGet("{id}")]
-        public async Task<ContactDefaultViewModel> Get(GetSingleContactRequest request)
+        public async Task<MemberDefaultViewModel> Get(GetOneMemberRequest request)
         {
             return await mediator.Send(request);
         }
 
-        // POST api/contacts
+        // POST api/members
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]AddContactRequest request) {
+        public async Task<IActionResult> Post([FromBody]AddMemberRequest request) {
             var result = await mediator.Send(request);
             return CreatedAtAction("Get", new { id = result.Id }, result);
         }
 
-        // PUT api/contacts/{id}
+        // PUT api/members/{id}
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody]UpsertContactRequest request) {
+        public async Task<IActionResult> Put([FromBody]UpsertMemberRequest request) {
             var result = await mediator.Send(request);
             var entity = result.Entity;
             if(result.Added){

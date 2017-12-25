@@ -1,6 +1,6 @@
 ﻿using System;
 using MediatR;
-using MediatrCrm.Domain.Contacts;
+using MediatrCrm.Domain.Contracts;
 
 namespace MediatrCrm.Domain.Requests
 {

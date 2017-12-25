@@ -9,25 +9,25 @@ using MediatrCrm.Domain.ViewModels;
 
 namespace MediatrCrm.Domain.Handlers
 {
-    public class UpsertContactRequest : UpsertEntityRequest<Contact, UpsertContactResponse>
+    public class UpsertMemberRequest : UpsertEntityRequest<Member, UpsertMemberResponse>
     {}
 
-    public class UpsertContactResponse: UpsertEntityResponse<ContactDefaultViewModel>{}
+    public class UpsertMemberResponse: UpsertEntityResponse<MemberDefaultViewModel>{}
 
-    public class UpsertContactHandler : IRequestHandler<UpsertContactRequest, UpsertContactResponse>
+    public class UpsertMemberHandler : IRequestHandler<UpsertMemberRequest, UpsertMemberResponse>
     {
         private readonly IDbContext dbcontext;
 
-        public UpsertContactHandler(IDbContext dbcontext)
+        public UpsertMemberHandler(IDbContext dbcontext)
         {
             this.dbcontext = dbcontext;
         }
 
-        public async Task<UpsertContactResponse> Handle(UpsertContactRequest request, CancellationToken cancellationToken)
+        public async Task<UpsertMemberResponse> Handle(UpsertMemberRequest request, CancellationToken cancellationToken)
         {
             var entity = request.Entity;
             var id = request.Id ?? entity.UniqueId;
-            var existing = await dbcontext.GetById<Contact>(id);
+            var existing = await dbcontext.GetById<Member>(id);
             var added = true;
             if(existing != null) {
                 // TODO: do a true update of existing record
@@ -35,10 +35,10 @@ namespace MediatrCrm.Domain.Handlers
                 await dbcontext.Delete(request.Entity);
             }
             var result = await dbcontext.Add(request.Entity);
-            return new UpsertContactResponse
+            return new UpsertMemberResponse
             {
                 Added = added,
-                Entity = result.ToDefaultContactViewModel()
+                Entity = result.ToDefaultMemberViewModel()
             };
 
         }

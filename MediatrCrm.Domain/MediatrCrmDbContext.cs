@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatrCrm.Domain.Models;
 using System.Linq;
 using System.Linq.Expressions;
-using MediatrCrm.Domain.Contacts;
+using MediatrCrm.Domain.Contracts;
 
 namespace MediatrCrm.Domain
 {
@@ -24,18 +24,18 @@ namespace MediatrCrm.Domain
     /// </summary>
     public class MediatrCrmDbContext : IDbContext
     {
-        private static List<Contact> mockContacts = new List<Contact>{
-            new Contact {
+        private static List<Member> fakeMembers = new List<Member>{
+            new Member {
                 UniqueId = "3d206612de8e",
                 FirstName = "Joe",
                 LastName = "Schmoe",
-                ContactSecret1 = "secret1"
+                MemberSecret1 = "secret1"
             },
-            new Contact {
+            new Member {
                 UniqueId = "474af0de6a74",
                 FirstName = "Sally",
                 LastName = "Smith",
-                ContactSecret1 = "sally's secret"
+                MemberSecret1 = "sally's secret"
             }
         };
 
@@ -68,9 +68,9 @@ namespace MediatrCrm.Domain
 
         private IList<T> GetDbSet<T>() where T : IEntity
         {
-            if (typeof(T) == typeof(Contact))
+            if (typeof(T) == typeof(Member))
             {
-                return mockContacts as IList<T>;
+                return fakeMembers as IList<T>;
             }
             else
             {

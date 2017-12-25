@@ -8,21 +8,21 @@ using MediatrCrm.Domain.ViewModels;
 
 namespace MediatrCrm.Domain.Handlers
 {
-    public class AddContactRequest : AddEntityRequest<Contact, ContactDefaultViewModel>{}
+    public class AddMemberRequest : AddEntityRequest<Member, MemberDefaultViewModel>{}
 
-    public class AddContactHandler : IRequestHandler<AddContactRequest, ContactDefaultViewModel>
+    public class AddMemberHandler : IRequestHandler<AddMemberRequest, MemberDefaultViewModel>
     {
         private readonly IDbContext dbcontext;
 
-        public AddContactHandler(IDbContext dbcontext)
+        public AddMemberHandler(IDbContext dbcontext)
         {
             this.dbcontext = dbcontext;
         }
 
-        public async Task<ContactDefaultViewModel> Handle(AddContactRequest request, CancellationToken cancellationToken)
+        public async Task<MemberDefaultViewModel> Handle(AddMemberRequest request, CancellationToken cancellationToken)
         {
             var result = await dbcontext.Add(request.Entity);
-            return result.ToDefaultContactViewModel();
+            return result.ToDefaultMemberViewModel();
         }
     }
 }

@@ -11,16 +11,16 @@ using System.Linq.Expressions;
 
 namespace MediatrCrm.UnitTests
 {
-    public class UpsertContactHandlerTests
+    public class UpsertMemberHandlerTests
     {
         [Fact]
         public async Task when_inserted_added_equals_true() {
             // prepare
 			var sut = GetSut();
-            var request = new UpsertContactRequest
+            var request = new UpsertMemberRequest
             {
                 Id = Guid.NewGuid().ToString(),
-                Entity = new Contact
+                Entity = new Member
                 {
                     FirstName = "John",
                     LastName = "Smith"
@@ -35,13 +35,13 @@ namespace MediatrCrm.UnitTests
         [Fact]
         public async Task when_updated_added_equals_false() {
             // prepare
-            var items = await GetDbContext().GetAll<Contact>();
+            var items = await GetDbContext().GetAll<Member>();
             var firstItem = items.FirstOrDefault();
             var sut = GetSut();
-            var request = new UpsertContactRequest
+            var request = new UpsertMemberRequest
             {
                 Id = firstItem.UniqueId,
-                Entity = new Contact
+                Entity = new Member
                 {
                     FirstName = "John",
                     LastName = "Smith"
@@ -57,9 +57,9 @@ namespace MediatrCrm.UnitTests
             return new MediatrCrmDbContext();
         }
 
-        UpsertContactHandler GetSut()
+        UpsertMemberHandler GetSut()
         {
-            return new UpsertContactHandler(GetDbContext());
+            return new UpsertMemberHandler(GetDbContext());
         }
     }
 }
