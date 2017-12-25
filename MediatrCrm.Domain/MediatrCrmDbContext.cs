@@ -13,6 +13,7 @@ namespace MediatrCrm.Domain
         Task<IEnumerable<T>> GetAll<T>() where T : IEntity;
         Task<T> GetById<T>(string id) where T : IEntity;
         Task<T> Add<T>(T entity) where T : IEntity;
+        Task<bool> Delete<T>(T entity) where T : IEntity;
     }
 
     /// <summary>
@@ -75,6 +76,13 @@ namespace MediatrCrm.Domain
             {
                 throw new InvalidOperationException();
             }            
+        }
+
+        public Task<bool> Delete<T>(T entity) where T : IEntity
+        {
+            var set = GetDbSet<T>();
+            set.Remove(entity);
+            return Task.FromResult(true);
         }
     }
 }

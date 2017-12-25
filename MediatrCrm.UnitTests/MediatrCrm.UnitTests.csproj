@@ -10,9 +10,15 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
     <PackageReference Include="xunit" Version="2.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Moq" Version="4.8.0" />
+    <PackageReference Include="FluentAssertions" Version="4.19.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MediatrCrm.Domain\MediatrCrm.Domain.csproj" />
+    <ProjectReference Include="..\MediatrCrm\MediatrCrm.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ContactsControllerTests\" />
   </ItemGroup>
 </Project>

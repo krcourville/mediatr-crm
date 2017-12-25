@@ -31,11 +31,22 @@ namespace MediatrCrm.Controllers
             return await mediator.Send(request);
         }
 
-        // POST api/contacts/{id}
+        // POST api/contacts
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddContactRequest request) {
             var result = await mediator.Send(request);
             return CreatedAtAction("Get", new { id = result.Id }, result);
+        }
+
+        // PUT api/contacts/{id}
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody]UpsertContactRequest request) {
+            var result = await mediator.Send(request);
+            var entity = result.Entity;
+            if(result.Added){
+                return CreatedAtAction("Get", new { id = entity.Id }, entity);
+            }
+            return Ok();
         }
     }
 }
